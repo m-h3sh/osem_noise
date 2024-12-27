@@ -1,6 +1,5 @@
 import numpy as np
 from matplotlib import pyplot as plt
-from scipy.fft import fft, fftfreq
 from scipy.signal import welch
 
 def cleanup(file_name):
@@ -14,12 +13,12 @@ def cleanup(file_name):
 
 def main():
     # cleaning up the data files
-    cleanup("adc.txt")
-    cleanup("open_light.txt")
-    cleanup("half_light.txt")
-    cleanup("full_dark.txt")
+    cleanup("data/adc.txt")
+    cleanup("data/open_light.txt")
+    cleanup("data/half_light.txt")
+    cleanup("data/full_dark.txt")
 
-    files = ["adc.txt", "open_light.txt", "half_light.txt", "full_dark.txt"]
+    files = ["data/adc.txt", "data/open_light.txt", "data/half_light.txt", "data/full_dark.txt"]
 
     plt.figure("OSEM Noise")
 
@@ -43,7 +42,7 @@ def main():
         ff, psd = welch(voltages, fs=sample_rate, window='hann', nperseg=fftlength * sample_rate, noverlap = fftlength * sample_rate/2, nfft=fftlength * sample_rate)
 
         # ASD is sqrt of PSD
-        plt.loglog(ff, np.sqrt(psd), label=name[:-4])
+        plt.loglog(ff, np.sqrt(psd), label=name[5:-4])
         plt.grid(True, which="both")
         plt.ylabel(r'Noise Spectral Density (V/$\sqrt{Hz}$')
         plt.xlabel('Frequency (Hz)')
